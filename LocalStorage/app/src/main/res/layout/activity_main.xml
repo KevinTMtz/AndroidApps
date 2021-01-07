@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:ems="10"
+        android:hint="ID"
         android:inputType="textPersonName"
-        android:text="ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/PlainTextID"
         app:layout_constraintTop_toBottomOf="@+id/PlainTextID" />
 
@@ -36,8 +36,8 @@
         android:layout_marginTop="26dp"
         android:layout_marginEnd="1dp"
         android:ems="10"
+        android:hint="StudentID"
         android:inputType="textPersonName"
-        android:text="StudentID"
         app:layout_constraintEnd_toEndOf="@+id/PlainTextName"
         app:layout_constraintTop_toBottomOf="@+id/PlainTextName" />
 
@@ -45,31 +45,30 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="Button"
+        android:onClick="add"
+        android:text="Add"
         app:layout_constraintBaseline_toBaselineOf="@+id/button2"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/PlainTextStudentID" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:text="Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button2"
+        android:layout_marginTop="40dp"
+        android:onClick="search"
+        android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
-        android:layout_marginEnd="20dp"
-        android:text="Button"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="37dp"
+        android:onClick="delete"
+        android:text="Delete"
         app:layout_constraintStart_toEndOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/PlainTextStudentID" />
 
