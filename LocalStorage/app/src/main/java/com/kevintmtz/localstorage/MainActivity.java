@@ -2,6 +2,7 @@ package com.kevintmtz.localstorage;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void delete(View v) {
         int affected = dbHelper.delete(name.getText().toString());
-        Toast.makeText(this, "Deleted " + affected + "records", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Deleted " + affected + " records", Toast.LENGTH_SHORT).show();
+    }
+
+    public void loadPrefsActivity(View v) {
+        Intent intent = new Intent(this, SharedPrefsActivity.class);
+        startActivity(intent);
     }
 }
