@@ -1,6 +1,7 @@
 package com.kevintmtz.recyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -9,27 +10,37 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static ImageFragment imageFragment;
+    private static TextFragment textFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        imageFragment = new ImageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("firstName", "Green");
+        bundle.putString("lastName", "Droid");
+        imageFragment.setArguments(bundle);
+
+        textFragment = new TextFragment();
+        changeFragment(imageFragment);
+    }
+
+    public void changeFragment(Fragment newFragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.replace(R.id.container, newFragment);
+        transaction.commit();
     }
 
     public void fragmentA(View v) {
-        ImageFragment imageFragment = new ImageFragment();
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container, imageFragment, "Image Fragment");
-        fragmentTransaction.commit();
+        changeFragment(imageFragment);
     }
 
     public void fragmentB(View v) {
-        TextFragment helloFragment = new TextFragment();
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container, helloFragment, "Image Fragment");
-        fragmentTransaction.commit();
+        changeFragment(textFragment);
     }
 }
