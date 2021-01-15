@@ -56,7 +56,7 @@ public class ImageFragment extends Fragment {
         return view;
     }
 
-    public void Greet(String greet) {
-        Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
+    public void greet(String greeting) {
+        Toast.makeText(getActivity(), greeting, Toast.LENGTH_SHORT).show();
     }
 }
