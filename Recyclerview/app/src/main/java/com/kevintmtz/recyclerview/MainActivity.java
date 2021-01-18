@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements TextFragment.Call
         changeFragment(textFragment);
     }
 
-    public void changeRecycler(View v) {
+    public void changeToRecyclerviewActivity(View v) {
         Intent intentToRecyclerviewActivity = new Intent(this, RecyclerviewActivity.class);
 
         startActivityForResult(intentToRecyclerviewActivity, ACTIVITY_CODE_RECYCLERVIEW);
