@@ -63,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements TextFragment.Call
         startActivityForResult(intentToRecyclerviewActivity, ACTIVITY_CODE_RECYCLERVIEW);
     }
 
+    public void changeToHttpRequestActivity(View v) {
+        Intent intentToHttpRequestActivity = new Intent(this, HttpRequestActivity.class);
+
+        startActivityForResult(intentToHttpRequestActivity, ACTIVITY_CODE_RECYCLERVIEW);
+    }
+
     @Override
     public void greetingOnActivity(String greeting) {
         Toast.makeText(this, "Received greeting: " + greeting, Toast.LENGTH_SHORT).show();

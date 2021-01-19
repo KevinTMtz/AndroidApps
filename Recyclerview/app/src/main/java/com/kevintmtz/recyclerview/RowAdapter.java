@@ -38,17 +38,17 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
     public RowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
         Button button = view.findViewById(R.id.btnRecyclerview);
+        RowViewHolder rvh = new RowViewHolder(view);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(parent.getContext(), "I am a row!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(parent.getContext(), String.format("I am row %d!", rvh.getAdapterPosition() + 1), Toast.LENGTH_SHORT).show();
             }
         });
 
         view.setOnClickListener(clickListener);
 
-        RowViewHolder rvh = new RowViewHolder(view);
         return rvh;
     }
 
