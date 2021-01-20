@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recyclerview</string>
+    <string name="hello_blank_fragment">Soy un fragmento</string>
+    <string name="fragment_a">Fragmento A</string>
+    <string name="fragment_b">Fragmento B</string>
+    <string name="fragment_greet_image">Saludar imagen</string>
+    <string name="fragment_go_to_recyclerview">Ir a recyclerview</string>
+    <string name="fragment_go_to_http_request">Ir a Http request</string>
+    <string name="hello_toast">Soy la actividad principal</string>
+</resources>
