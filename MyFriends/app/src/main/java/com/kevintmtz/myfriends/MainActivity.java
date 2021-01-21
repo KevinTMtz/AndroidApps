@@ -1,30 +1,37 @@
 package com.kevintmtz.myfriends;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Handler.Callback {
 
+    private Handler handler;
     private static String json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        handler =  new Handler(Looper.getMainLooper(), this);
     }
 
     public void loadFriends(View view) {
-        json = "{'friends': [" +
-                "{'name': 'Kevin', 'hobby': 'Coding', 'age': '20' , 'phone': '1234567890', 'address': 'Earth'}," +
-                "{'name': 'Nat', 'hobby': 'Sleeping', 'age': '21' , 'phone': '0987654321', 'address': 'Moon'}," +
-                "{'name': 'Mario', 'hobby': 'Twerking', 'age': '20' , 'phone': '6789054321', 'address': 'Mars'}" +
-                "]}";
+        /*
+        JSON location:
+        https://github.com/KevinTMtz/AndroidApps/blob/main/Friends.json
+        */
 
-        setFragment();
+        HttpRequest request = new HttpRequest("https://raw.githubusercontent.com/KevinTMtz/AndroidApps/master/Friends.json", handler);
+        request.start();
     }
 
     public void setFragment() {
@@ -38,5 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
         transaction.replace(R.id.layoutContainer, friendsRecyclerviewFragment);
         transaction.commit();
+    }
+
+    @Override
+    public boolean handleMessage(@NonNull Message msg) {
+        json = (String) msg.obj;
+        setFragment();
+
+        return true;
     }
 }

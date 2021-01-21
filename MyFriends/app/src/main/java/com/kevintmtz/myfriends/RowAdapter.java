@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
     public class RowViewHolder extends RecyclerView.ViewHolder {
@@ -40,8 +39,7 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         this.context = context;
 
         try {
-            JSONObject object = new JSONObject(json);
-            this.jsonArray = object.getJSONArray("friends");
+            this.jsonArray = new JSONArray(json);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -53,27 +51,19 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_friend, parent, false);
         RowViewHolder rvh = new RowViewHolder(view);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
+        view.setOnClickListener(v -> {
+            FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
 
-                FriendInfoFragment friendInfoFragment = new FriendInfoFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("json_string", json);
+            FriendInfoFragment friendInfoFragment = new FriendInfoFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("json_string", json);
+            bundle.putInt("object_index", rvh.getAdapterPosition());
 
-                try {
-                    bundle.putString("json_object", jsonArray.getJSONObject(rvh.getAdapterPosition()).toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            friendInfoFragment.setArguments(bundle);
 
-                friendInfoFragment.setArguments(bundle);
-
-                transaction.replace(R.id.layoutContainer, friendInfoFragment);
-                transaction.commit();
-            }
+            transaction.replace(R.id.layoutContainer, friendInfoFragment);
+            transaction.commit();
         });
 
         return rvh;

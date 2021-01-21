@@ -11,26 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FriendInfoFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "json_object";
+    private static final String ARG_PARAM1 = "object_index";
     private static final String ARG_PARAM2 = "json_string";
 
-    private static final String JSON_KEY1 = "name";
-    private static final String JSON_KEY2 = "hobby";
-    private static final String JSON_KEY3 = "age";
-    private static final String JSON_KEY4 = "phone";
-    private static final String JSON_KEY5 = "address";
-
-    private String name;
-    private String hobby;
-    private String age;
-    private String phone;
-    private String address;
     private String json;
+    private JSONObject jsonObject;
 
     public FriendInfoFragment() {
         // Required empty public constructor
@@ -41,16 +32,12 @@ public class FriendInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
+            int objectIndex = getArguments().getInt(ARG_PARAM1);
             json = getArguments().getString(ARG_PARAM2);
 
             try {
-                JSONObject object = new JSONObject(getArguments().getString(ARG_PARAM1));
-
-                name = object.getString(JSON_KEY1);
-                hobby = object.getString(JSON_KEY2);
-                age = object.getString(JSON_KEY3);
-                phone = object.getString(JSON_KEY4);
-                address = object.getString(JSON_KEY5);
+                JSONArray jsonArray = new JSONArray(json);
+                jsonObject = jsonArray.getJSONObject(objectIndex);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -62,26 +49,27 @@ public class FriendInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friend_info, container, false);
 
-        ((TextView) view.findViewById(R.id.textViewName)).setText(String.format("Name: %s", name));
-        ((TextView) view.findViewById(R.id.textViewHobby)).setText(String.format("Hobby: %s", hobby));
-        ((TextView) view.findViewById(R.id.textViewAge)).setText(String.format("Age: %s", age));
-        ((TextView) view.findViewById(R.id.textViewPhone)).setText(String.format("Phone: %s", phone));
-        ((TextView) view.findViewById(R.id.textViewAddress)).setText(String.format("Address: %s", address));
+        try {
+            ((TextView) view.findViewById(R.id.textViewName)).setText(String.format("Name: %s", jsonObject.getString("name")));
+            ((TextView) view.findViewById(R.id.textViewHobby)).setText(String.format("Hobby: %s", jsonObject.getString("hobby")));
+            ((TextView) view.findViewById(R.id.textViewAge)).setText(String.format("Age: %s", jsonObject.getString("age")));
+            ((TextView) view.findViewById(R.id.textViewPhone)).setText(String.format("Phone: %s", jsonObject.getString("phone")));
+            ((TextView) view.findViewById(R.id.textViewAddress)).setText(String.format("Address: %s", jsonObject.getString("address")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        view.findViewById(R.id.buttonBack).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
+        view.findViewById(R.id.buttonBack).setOnClickListener(v -> {
+            FragmentManager manager = getFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
 
-                FriendsRecyclerviewFragment friendsRecyclerviewFragment = new FriendsRecyclerviewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("json_string", json);
-                friendsRecyclerviewFragment.setArguments(bundle);
+            FriendsRecyclerviewFragment friendsRecyclerviewFragment = new FriendsRecyclerviewFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("json_string", json);
+            friendsRecyclerviewFragment.setArguments(bundle);
 
-                transaction.replace(R.id.layoutContainer, friendsRecyclerviewFragment);
-                transaction.commit();
-            }
+            transaction.replace(R.id.layoutContainer, friendsRecyclerviewFragment);
+            transaction.commit();
         });
 
         return view;
