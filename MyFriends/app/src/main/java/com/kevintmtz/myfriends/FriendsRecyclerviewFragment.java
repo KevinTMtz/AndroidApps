@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FriendsRecyclerviewFragment extends Fragment {
+import java.io.Serializable;
+
+public class FriendsRecyclerviewFragment extends Fragment implements Serializable {
 
     private String json;
 
@@ -34,7 +36,7 @@ public class FriendsRecyclerviewFragment extends Fragment {
 
         RecyclerView friendsRecyclerview = view.findViewById(R.id.recyclerviewFriends);
 
-        RowAdapter rowAdapter = new RowAdapter(json, getActivity());
+        RowAdapter rowAdapter = new RowAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -42,5 +44,9 @@ public class FriendsRecyclerviewFragment extends Fragment {
         friendsRecyclerview.setAdapter(rowAdapter);
 
         return view;
+    }
+
+    public String getJson() {
+        return json;
     }
 }

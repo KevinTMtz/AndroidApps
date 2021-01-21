@@ -53,7 +53,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_info_details" />
+                app:srcCompat="@android:drawable/ic_menu_info_details"
+                android:contentDescription="Info icon" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -1,6 +1,5 @@
 package com.kevintmtz.myfriends;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
-    public class RowViewHolder extends RecyclerView.ViewHolder {
+    public static class RowViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView textViewName;
         public final TextView textViewHobby;
@@ -30,16 +28,18 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         }
     }
 
-    private final String json;
     private JSONArray jsonArray;
-    private final Context context;
+    private final FriendsRecyclerviewFragment friendsRecyclerviewFragment;
+    private final FriendInfoFragment friendInfoFragment;
 
-    public RowAdapter(String json, Context context) {
-        this.json = json;
-        this.context = context;
+    public RowAdapter(FriendsRecyclerviewFragment friendsRecyclerviewFragment) {
+        this.friendsRecyclerviewFragment = friendsRecyclerviewFragment;
+
+        friendInfoFragment = new FriendInfoFragment();
+        friendInfoFragment.setFriendsRecyclerviewFragment(friendsRecyclerviewFragment);
 
         try {
-            this.jsonArray = new JSONArray(json);
+            this.jsonArray = new JSONArray(friendsRecyclerviewFragment.getJson());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -52,14 +52,16 @@ public class RowAdapter extends RecyclerView.Adapter<RowAdapter.RowViewHolder> {
         RowViewHolder rvh = new RowViewHolder(view);
 
         view.setOnClickListener(v -> {
-            FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+            FragmentManager manager = friendsRecyclerviewFragment.getActivity().getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
 
-            FriendInfoFragment friendInfoFragment = new FriendInfoFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("json_string", json);
-            bundle.putInt("object_index", rvh.getAdapterPosition());
-
+            bundle.putSerializable("recyclerview_fragment", friendsRecyclerviewFragment);
+            try {
+                bundle.putString("json_object", jsonArray.getJSONObject(rvh.getLayoutPosition()).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             friendInfoFragment.setArguments(bundle);
 
             transaction.replace(R.id.layoutContainer, friendInfoFragment);

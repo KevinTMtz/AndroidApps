@@ -11,17 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FriendInfoFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "object_index";
-    private static final String ARG_PARAM2 = "json_string";
+    private static final String ARG_PARAM2 = "json_object";
 
-    private String json;
     private JSONObject jsonObject;
+    private FriendsRecyclerviewFragment friendsRecyclerviewFragment;
 
     public FriendInfoFragment() {
         // Required empty public constructor
@@ -32,12 +30,8 @@ public class FriendInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            int objectIndex = getArguments().getInt(ARG_PARAM1);
-            json = getArguments().getString(ARG_PARAM2);
-
             try {
-                JSONArray jsonArray = new JSONArray(json);
-                jsonObject = jsonArray.getJSONObject(objectIndex);
+                jsonObject = new JSONObject(getArguments().getString(ARG_PARAM2));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -63,15 +57,14 @@ public class FriendInfoFragment extends Fragment {
             FragmentManager manager = getFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
 
-            FriendsRecyclerviewFragment friendsRecyclerviewFragment = new FriendsRecyclerviewFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("json_string", json);
-            friendsRecyclerviewFragment.setArguments(bundle);
-
             transaction.replace(R.id.layoutContainer, friendsRecyclerviewFragment);
             transaction.commit();
         });
 
         return view;
+    }
+
+    public void setFriendsRecyclerviewFragment(FriendsRecyclerviewFragment friendsRecyclerviewFragment) {
+        this.friendsRecyclerviewFragment = friendsRecyclerviewFragment;
     }
 }

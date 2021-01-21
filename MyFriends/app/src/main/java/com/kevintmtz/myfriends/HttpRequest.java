@@ -1,6 +1,5 @@
 package com.kevintmtz.myfriends;
 
-
 import android.os.Message;
 
 import java.io.BufferedReader;
