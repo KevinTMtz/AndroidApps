@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MyFriends</string>
+    <string name="app_name">My Friends</string>
+    <string name="button_load">Load friends</string>
+    <string name="text_view_title_friend_info">Friend\'s Info</string>
 </resources>
