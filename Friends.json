@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Boba Fett",
+    "hobby": "Flying",
+    "age": 36,
+    "phone": 56841689,
+    "address": "Tatooine"
+  },
+  {
+    "name": "Chewbacca",
+    "hobby": "Screaming",
+    "age": 235,
+    "phone": 61413242,
+    "address": "Kashyyyk"
+  },
+  {
+    "name": "Luke Skywalker",
+    "hobby": "Drink blue milk",
+    "age": 53,
+    "phone": 34937114,
+    "address": "Rodia"
+  },
+  {
+    "name": "Mace Windu",
+    "hobby": "Fighting",
+    "age": 53,
+    "phone": 97437713,
+    "address": "Coruscant"
+  },
+  {
+    "name": "Yoda",
+    "hobby": "Being wise",
+    "age": 900,
+    "phone": 56501438,
+    "address": "Tatooine"
+  },
+  {
+    "name": "Darth Vader",
+    "hobby": "Asphyxiating",
+    "age": 45,
+    "phone": 68772373,
+    "address": "Mustafar"
+  },
+  {
+    "name": "Obi-Wan Kenobi",
+    "hobby": "Greeting",
+    "age": 57,
+    "phone": 37296774,
+    "address": "Stewjon"
+  },
+  {
+    "name": "Palpatine",
+    "hobby": "Betraying",
+    "age": 117,
+    "phone": 30278732,
+    "address": "Naboo"
+  },
+  {
+    "name": "Rey",
+    "hobby": "Save the galaxy",
+    "age": 20,
+    "phone": 94031766,
+    "address": "Jakku"
+  }
+]
